@@ -1,0 +1,3 @@
+string s = "azertyuiop";
+int l = str_len(s);
+print_num(l);

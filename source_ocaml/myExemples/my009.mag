@@ -1,0 +1,7 @@
+int n = read_num();
+while (n > 0){
+    print_num(n);
+    print_nl();
+    n = n - 1;
+}
+print_str("BOUM!");

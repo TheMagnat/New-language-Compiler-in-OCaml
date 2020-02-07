@@ -1,0 +1,2 @@
+int cond = 1;
+print_num(1);

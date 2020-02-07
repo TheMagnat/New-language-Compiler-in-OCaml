@@ -1,0 +1,39 @@
+int def int_list_len ([int] l){
+    int ret = 0;
+    if(pair_empty(l))
+        ret = 0;
+    else{
+        ret = 1 + int_list_len(tail(l));
+    }
+    return ret;
+}
+
+int def int_list_sum([int] l){
+    int ret = 0;
+    if(pair_empty(l)){
+        ret = 0;
+    }
+    else{
+        ret = head(l) + int_list_sum(tail(l));
+    }
+    return ret;  
+}
+
+[int] entiers = [];
+string msg = "Entrez un nombre positif ou -1 pour terminer : ";
+
+print_str(msg);
+int n = read_num();
+
+while(n >= 0){
+    entiers = pair(n, entiers);
+    print_str(msg);
+    n = read_num();
+}
+
+
+print_str("Vous avez entré ");
+print_num(int_list_len(entiers));
+print_str(" nombres, dont la somme est ");
+print_num(int_list_sum(entiers));
+print_str(".\n");

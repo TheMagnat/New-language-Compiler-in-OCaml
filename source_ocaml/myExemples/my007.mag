@@ -1,0 +1,6 @@
+[int] pouet = [ 3, 2, 1, 0 ];
+[int] lala = pair(4, pouet);
+int quatre = head(lala);
+print_num(quatre == 4);
+print_nl();
+print_num(pouet === tail(lala));

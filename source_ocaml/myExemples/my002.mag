@@ -1,0 +1,4 @@
+int n = 42;
+int p = n + 9;
+int truc = -5 + p / 3;
+print_num(truc);

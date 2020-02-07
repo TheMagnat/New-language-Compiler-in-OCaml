@@ -1,0 +1,6 @@
+int a = read_num();
+if (a < 10){
+    print_str("yope");
+}
+else
+    print_str("nope");
