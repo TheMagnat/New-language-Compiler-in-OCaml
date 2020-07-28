@@ -31,13 +31,20 @@ let errt expected given pos =
     pos
 
 let expr_pos = function
-  | P.Nil e
-  | P.Num e
-  | P.Str e
-  | P.Var e
-  | P.Reassign e
-  | P.Call e
-  | P.Cond e
+  | P.Nil e ->
+      e.pos
+  | P.Num e ->
+      e.pos
+  | P.Str e ->
+      e.pos
+  | P.Var e ->
+      e.pos
+  | P.Reassign e ->
+      e.pos
+  | P.Call e ->
+      e.pos
+  | P.Cond e ->
+      e.pos
   | P.While e ->
       e.pos
 
@@ -83,22 +90,23 @@ let rec analyze_expr expr funcEnv varEnv =
           in
           (Call {func= c.func; args}, ft.ret)
     | _ ->
-        err (Format.sprintf "value '%s' is not a function" c.func) c.pos
-    | P.Cond c ->
-        let at, tt = analyze_expr c.test funcEnv varEnv in
-        if tt <> Num_t then
-          err (Format.sprintf "If condition must be a num") (expr_pos c.test)
-        else
-          let ay = analyze_block c.yes funcEnv varEnv Void_t in
-          let an = analyze_block c.no funcEnv varEnv Void_t in
-          (Cond {test= at; yes= ay; no= an}, Void_t)
-    | P.While w ->
-        let at, tt = analyze_expr w.test funcEnv varEnv in
-        if tt <> Num_t then
-          err (Format.sprintf "While condition must be a num") expr_pos w.test
-        else
-          let ab = analyze_block w.block funcEnv varEnv Void_t in
-          (While {test= at; block= ab}, Void_t) )
+        err (Format.sprintf "value '%s' is not a function" c.func) c.pos)
+
+  | P.Cond c ->
+      let at, tt = analyze_expr c.test funcEnv varEnv in
+      if tt <> Num_t then
+        err (Format.sprintf "If condition must be a num") (expr_pos c.test)
+      else
+        let ay = analyze_block c.yes funcEnv varEnv Void_t in
+        let an = analyze_block c.no funcEnv varEnv Void_t in
+        (Cond {test= at; yes= ay; no= an}, Void_t)
+  | P.While w ->
+      let at, tt = analyze_expr w.test funcEnv varEnv in
+      if tt <> Num_t then
+        err (Format.sprintf "While condition must be a num") (expr_pos w.test)
+      else
+        let ab = analyze_block w.block funcEnv varEnv Void_t in
+        (While {test= at; block= ab}, Void_t)
 
 and analyze_instr instr funcEnviro varEnviro blockReturnType =
   match instr with
